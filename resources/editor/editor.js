@@ -35,6 +35,7 @@ const S = {
     renderToken: 0,
     status: '',
     frameReady: false,
+    library: { items: null, sources: [], failed: [], source: '', category: '', search: '', loading: false, error: '' },
 };
 
 // ---------------------------------------------------------------- http
@@ -413,10 +414,11 @@ function paintLeft() {
     const tab = (id, label) => h('button', { class: `lm-ltab${S.leftTab === id ? ' is-active' : ''}`, onClick: () => { S.leftTab = id; paintLeft(); } }, label);
     const body = h('div', { class: 'lm-panel-body' });
     els.left.replaceChildren(
-        h('div', { class: 'lm-ltabs' }, tab('add', 'Elements'), tab('edit', 'Settings'), tab('navigator', 'Navigator')),
+        h('div', { class: 'lm-ltabs' }, tab('add', 'Elements'), tab('library', 'Library'), tab('edit', 'Settings'), tab('navigator', 'Navigator')),
         body);
 
     if (S.leftTab === 'add') body.append(...paintPalette());
+    else if (S.leftTab === 'library') body.append(...paintLibrary());
     else if (S.leftTab === 'navigator') body.append(paintNavigator());
     else paintSettings(body);
     body.scrollTop = scroll;
@@ -444,6 +446,104 @@ function paintPalette() {
     };
     repaintGrid();
     return [search, gridHost];
+}
+
+// ---------------------------------------------------------------- library
+
+async function loadLibrary() {
+    const L = S.library;
+    L.loading = true; L.error = '';
+    if (S.leftTab === 'library') paintLeft();
+    try {
+        const res = await http('GET', '/library');
+        L.items = res.items || []; L.sources = res.sources || []; L.failed = res.failed || [];
+    } catch (e) {
+        L.error = e.message; L.items = L.items || [];
+    } finally {
+        L.loading = false;
+        if (S.leftTab === 'library') paintLeft();
+    }
+}
+
+function paintLibrary() {
+    const L = S.library;
+    if (L.items === null && !L.loading) { loadLibrary(); }
+    if (L.items === null) return [h('p', { class: 'lm-hint' }, 'Loading the library…')];
+
+    const listHost = h('div', { class: 'lm-lib-list' });
+    const repaint = () => {
+        const q = L.search.toLowerCase();
+        const shown = L.items.filter((it) => (!L.source || it.source === L.source)
+            && (!L.category || it.category === L.category)
+            && (!q || it.title.toLowerCase().includes(q) || (it.tags || []).some((t) => t.toLowerCase().includes(q))));
+        listHost.replaceChildren(...(shown.length ? shown.map(libraryCard) : [h('p', { class: 'lm-hint' }, L.items.length ? 'No blocks match.' : 'No blocks yet. Select an element and use ★ on its toolbar to save it as a block.')]));
+    };
+    const categories = [...new Set(L.items.filter((it) => !L.source || it.source === L.source).map((it) => it.category).filter(Boolean))].sort();
+    const dropdown = (value, options, onChange, label) => h('select', { class: 'lm-input', 'aria-label': label, onChange: (e) => onChange(e.target.value) },
+        options.map(([v, text]) => h('option', { value: v, selected: v === value }, text)));
+
+    const controls = [
+        h('input', { class: 'lm-input', type: 'search', placeholder: 'Search blocks…', value: L.search, onInput: (e) => { L.search = e.target.value; repaint(); } }),
+        L.sources.length > 1 ? dropdown(L.source, [['', 'All sources'], ...L.sources.map((s) => [s.key, s.label])], (v) => { L.source = v; L.category = ''; paintLeft(); }, 'Source') : null,
+        categories.length > 1 ? dropdown(L.category, [['', 'All categories'], ...categories.map((c) => [c, c])], (v) => { L.category = v; repaint(); }, 'Category') : null,
+        h('button', { class: 'lm-btn', type: 'button', onClick: loadLibrary, disabled: L.loading }, L.loading ? 'Refreshing…' : 'Refresh'),
+    ].filter(Boolean);
+    const notes = [
+        L.error ? h('p', { class: 'lm-hint is-error' }, `Library not loaded: ${L.error}`) : null,
+        L.failed.length ? h('p', { class: 'lm-hint is-error' }, `Unavailable: ${L.failed.map((k) => L.sources.find((s) => s.key === k)?.label || k).join(', ')}`) : null,
+    ].filter(Boolean);
+    repaint();
+    return [h('div', { class: 'lm-lib-controls' }, controls), ...notes, listHost];
+}
+
+function libraryCard(item) {
+    return h('div', { class: 'lm-lib-card' },
+        item.thumbnail ? h('img', { class: 'lm-lib-thumb', src: item.thumbnail, alt: '', loading: 'lazy' }) : h('div', { class: 'lm-lib-thumb is-empty', 'aria-hidden': 'true' }, h('i', { class: 'eicon-library-open' })),
+        h('div', { class: 'lm-lib-meta' },
+            h('strong', {}, item.title),
+            h('span', { class: 'lm-hint' }, [item.category, S.library.sources.length > 1 ? (S.library.sources.find((s) => s.key === item.source)?.label || item.source) : ''].filter(Boolean).join(' · '))),
+        h('button', { class: 'lm-btn', type: 'button', title: 'Insert after the selected element, or at the end of the page', onClick: (e) => insertBlock(item, e.currentTarget) }, 'Insert'));
+}
+
+/** Fetch a block (ids already re-keyed by the server) and place its elements where a palette click would. */
+async function insertBlock(item, button) {
+    if (button) { button.disabled = true; button.textContent = 'Inserting…'; }
+    try {
+        const block = await http('GET', `/library/${encodeURIComponent(item.source)}/${encodeURIComponent(item.id)}`);
+        const nodes = (block.content || []).map(withNewIds);
+        if (!nodes.length) { flash('That block is empty'); return; }
+        let first = null;
+        mutate(() => {
+            const target = insertTarget();
+            nodes.forEach((node, i) => {
+                const placed = place(node, { ...target, index: target.index + i });
+                first ||= placed;
+            });
+        });
+        if (first) select(first.id, { focusPanel: false });
+        flash(`Inserted “${block.title || item.title}”`);
+    } catch (e) {
+        flash(`Could not insert: ${e.message}`, 6000);
+    } finally {
+        if (button) { button.disabled = false; button.textContent = 'Insert'; }
+    }
+}
+
+/** "Save as block": the selected element (and everything inside it) becomes a Saved block. */
+async function saveAsBlock(id) {
+    const hit = find(id);
+    if (!hit) return;
+    const title = prompt('Name for this block', labelOf(hit.node));
+    if (title === null || !title.trim()) return;
+    const category = prompt('Category (optional)', 'Saved') ?? '';
+    try {
+        const item = await http('POST', '/library/blocks', { title: title.trim(), category: category.trim() || null, content: [clone(hit.node)] });
+        if (S.library.items) S.library.items.unshift(item);
+        flash(`Saved “${item.title}” to the library`);
+        if (S.leftTab === 'library') paintLeft();
+    } catch (e) {
+        flash(`Not saved: ${e.message}`, 6000);
+    }
 }
 
 function paintNavigator() {
@@ -710,6 +810,7 @@ function positionBar() {
         h('button', { title: 'Move up', onClick: (e) => { e.stopPropagation(); moveElement(S.selected, -1); } }, '↑'),
         h('button', { title: 'Move down', onClick: (e) => { e.stopPropagation(); moveElement(S.selected, 1); } }, '↓'),
         h('button', { title: 'Duplicate', onClick: (e) => { e.stopPropagation(); duplicateElement(S.selected); } }, '⧉'),
+        h('button', { title: 'Save as block', onClick: (e) => { e.stopPropagation(); saveAsBlock(S.selected); } }, '★'),
         h('button', { title: 'Delete', onClick: (e) => { e.stopPropagation(); removeElement(S.selected); } }, '✕'));
     doc.body.append(bar);
 }
