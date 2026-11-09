@@ -1,0 +1,31 @@
+{"name":"form","title":"Form","icon":"eicon-form-horizontal","categories":["general"],"keywords":["form","contact","email","input"],"controls":{
+"section_fields":{"type":"section","tab":"content","label":"Form Fields","name":"section_fields"},
+"form_name":{"type":"text","tab":"content","section":"section_fields","label":"Form name","default":"New Form","name":"form_name"},
+"form_fields":{"type":"repeater","tab":"content","section":"section_fields","label":"Fields","name":"form_fields","default":[{"_id":"name","field_type":"text","field_label":"Name","placeholder":"Name","required":"yes"},{"_id":"email","field_type":"email","field_label":"Email","placeholder":"Email","required":"yes"},{"_id":"message","field_type":"textarea","field_label":"Message","placeholder":"Message","required":""}],
+ "fields":{
+  "field_type":{"type":"select","label":"Type","default":"text","name":"field_type","options":{"text":"Text","email":"Email","textarea":"Textarea","tel":"Tel","number":"Number","url":"URL","select":"Select","checkbox":"Checkbox","hidden":"Hidden"}},
+  "field_label":{"type":"text","label":"Label","default":"","name":"field_label"},
+  "placeholder":{"type":"text","label":"Placeholder","default":"","name":"placeholder","condition":{"field_type!":["checkbox","select","hidden"]}},
+  "field_options":{"type":"textarea","label":"Options (one per line)","default":"","name":"field_options","condition":{"field_type":"select"}},
+  "default_value":{"type":"text","label":"Default value","default":"","name":"default_value","condition":{"field_type":["hidden","text"]}},
+  "required":{"type":"switcher","label":"Required","return_value":"yes","default":"","name":"required"}
+ }},
+"section_button":{"type":"section","tab":"content","label":"Button","name":"section_button"},
+"button_text":{"type":"text","tab":"content","section":"section_button","label":"Text","default":"Send","name":"button_text"},
+"section_actions":{"type":"section","tab":"content","label":"After submit","name":"section_actions"},
+"email_to":{"type":"text","tab":"content","section":"section_actions","label":"Send to (email)","default":"","name":"email_to","placeholder":"you@example.com"},
+"email_subject":{"type":"text","tab":"content","section":"section_actions","label":"Subject","default":"New message from your site","name":"email_subject"},
+"success_message":{"type":"text","tab":"content","section":"section_actions","label":"Success message","default":"Thanks, your message was sent.","name":"success_message"},
+"redirect_to":{"type":"url","tab":"content","section":"section_actions","label":"Redirect after submit","default":{"url":""},"name":"redirect_to"},
+"section_style_fields":{"type":"section","tab":"style","label":"Fields","name":"section_style_fields"},
+"field_gap":{"type":"slider","tab":"style","section":"section_style_fields","label":"Spacing","size_units":["px"],"range":{"px":{"min":0,"max":60}},"default":{"unit":"px","size":"","sizes":[]},"name":"field_gap","selectors":{"{{WRAPPER}} .elementor-field-group":"margin-bottom:{{SIZE}}{{UNIT}};"}},
+"field_text_color":{"type":"color","tab":"style","section":"section_style_fields","label":"Text color","default":"","name":"field_text_color","selectors":{"{{WRAPPER}} .elementor-field":"color:{{VALUE}};"}},
+"field_bg_color":{"type":"color","tab":"style","section":"section_style_fields","label":"Background","default":"","name":"field_bg_color","selectors":{"{{WRAPPER}} .elementor-field":"background-color:{{VALUE}};"}},
+"field_border_color":{"type":"color","tab":"style","section":"section_style_fields","label":"Border color","default":"","name":"field_border_color","selectors":{"{{WRAPPER}} .elementor-field":"border-color:{{VALUE}};"}},
+"field_border_radius":{"type":"slider","tab":"style","section":"section_style_fields","label":"Border radius","size_units":["px"],"range":{"px":{"min":0,"max":50}},"default":{"unit":"px","size":"","sizes":[]},"name":"field_border_radius","selectors":{"{{WRAPPER}} .elementor-field":"border-radius:{{SIZE}}{{UNIT}};"}},
+"section_style_button":{"type":"section","tab":"style","label":"Button","name":"section_style_button"},
+"button_bg":{"type":"color","tab":"style","section":"section_style_button","label":"Background","default":"","name":"button_bg","selectors":{"{{WRAPPER}} .elementor-button":"background-color:{{VALUE}};"}},
+"button_color":{"type":"color","tab":"style","section":"section_style_button","label":"Text color","default":"","name":"button_color","selectors":{"{{WRAPPER}} .elementor-button":"color:{{VALUE}};"}},
+"button_align":{"type":"choose","tab":"style","section":"section_style_button","label":"Alignment","default":"","name":"button_align","options":{"left":{"title":"Left","icon":"eicon-text-align-left"},"center":{"title":"Center","icon":"eicon-text-align-center"},"right":{"title":"Right","icon":"eicon-text-align-right"}},"selectors":{"{{WRAPPER}} .elementor-button-wrapper":"text-align:{{VALUE}};"}},
+"error_color":{"type":"color","tab":"style","section":"section_style_button","label":"Message color","default":"","name":"error_color","selectors":{"{{WRAPPER}} .lamentor-form-message":"color:{{VALUE}};"}}
+}}

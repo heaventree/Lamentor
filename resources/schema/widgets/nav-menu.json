@@ -1,0 +1,17 @@
+{"name":"nav-menu","title":"Nav Menu","icon":"eicon-nav-menu","categories":["general"],"keywords":["menu","navigation","mega","header"],"controls":{
+"section_items":{"type":"section","tab":"content","label":"Menu","name":"section_items"},
+"menu_items":{"type":"repeater","tab":"content","section":"section_items","label":"Items","name":"menu_items","default":[{"_id":"home","label":"Home","link":{"url":"/"},"submenu":""},{"_id":"about","label":"About","link":{"url":"/about"},"submenu":""}],
+ "fields":{
+  "label":{"type":"text","label":"Label","default":"Item","name":"label"},
+  "link":{"type":"url","label":"Link","default":{"url":""},"name":"link"},
+  "submenu":{"type":"textarea","label":"Dropdown links (one per line: Label|URL)","default":"","name":"submenu"},
+  "mega_template":{"type":"number","label":"Mega menu template (document id)","default":"","name":"mega_template"}
+ }},
+"layout":{"type":"select","tab":"content","section":"section_items","label":"Layout","default":"horizontal","options":{"horizontal":"Horizontal","vertical":"Vertical"},"name":"layout","prefix_class":"lamentor-nav-"},
+"collapse_below":{"type":"select","tab":"content","section":"section_items","label":"Collapse to a toggle on","default":"mobile","options":{"":"Never","tablet":"Tablet and below","mobile":"Mobile"},"name":"collapse_below","prefix_class":"lamentor-nav-collapse-"},
+"section_style":{"type":"section","tab":"style","label":"Menu","name":"section_style"},
+"link_color":{"type":"color","tab":"style","section":"section_style","label":"Link color","default":"","name":"link_color","selectors":{"{{WRAPPER}} .lamentor-nav a, {{WRAPPER}} .lamentor-nav button":"color:{{VALUE}};"}},
+"link_hover_color":{"type":"color","tab":"style","section":"section_style","label":"Hover color","default":"","name":"link_hover_color","selectors":{"{{WRAPPER}} .lamentor-nav a:hover, {{WRAPPER}} .lamentor-nav button:hover":"color:{{VALUE}};"}},
+"item_gap":{"type":"slider","tab":"style","section":"section_style","label":"Spacing","size_units":["px"],"range":{"px":{"min":0,"max":60}},"default":{"unit":"px","size":"","sizes":[]},"name":"item_gap","selectors":{"{{WRAPPER}} .lamentor-nav > ul":"gap:{{SIZE}}{{UNIT}};"}},
+"panel_bg":{"type":"color","tab":"style","section":"section_style","label":"Dropdown background","default":"","name":"panel_bg","selectors":{"{{WRAPPER}} .lamentor-nav-panel":"background-color:{{VALUE}};"}}
+}}

@@ -1,0 +1,12 @@
+{"name":"loop-grid","title":"Loop Grid","icon":"eicon-posts-grid","categories":["general"],"keywords":["loop","posts","grid","repeat","query"],"controls":{
+"section_query":{"type":"section","tab":"content","label":"Query","name":"section_query"},
+"items_source":{"type":"text","tab":"content","section":"section_query","label":"Data source","default":"documents","name":"items_source","description":"Name of a source registered with LoopSources."},
+"template_id":{"type":"number","tab":"content","section":"section_query","label":"Item template (document id)","default":"","name":"template_id","description":"A document of type loop-item; use Dynamic tags (field) inside it."},
+"limit":{"type":"number","tab":"content","section":"section_query","label":"Items","default":6,"min":1,"max":100,"name":"limit"},
+"section_layout":{"type":"section","tab":"content","label":"Layout","name":"section_layout"},
+"columns":{"type":"select","tab":"content","section":"section_layout","label":"Columns","default":"3","options":{"1":"1","2":"2","3":"3","4":"4","5":"5","6":"6"},"responsive":{"max":"desktop"},"name":"columns","selectors":{"{{WRAPPER}} .lamentor-loop":"grid-template-columns:repeat({{VALUE}},minmax(0,1fr));"}},
+"columns_tablet":{"type":"select","tab":"content","section":"section_layout","label":"Columns","default":"","options":{"":"Default","1":"1","2":"2","3":"3","4":"4"},"responsive":{"max":"tablet"},"name":"columns_tablet","selectors":{"{{WRAPPER}} .lamentor-loop":"grid-template-columns:repeat({{VALUE}},minmax(0,1fr));"}},
+"columns_mobile":{"type":"select","tab":"content","section":"section_layout","label":"Columns","default":"","options":{"":"Default","1":"1","2":"2"},"responsive":{"max":"mobile"},"name":"columns_mobile","selectors":{"{{WRAPPER}} .lamentor-loop":"grid-template-columns:repeat({{VALUE}},minmax(0,1fr));"}},
+"gap":{"type":"slider","tab":"content","section":"section_layout","label":"Gap","size_units":["px"],"range":{"px":{"min":0,"max":80}},"default":{"unit":"px","size":20,"sizes":[]},"responsive":{"max":"desktop"},"name":"gap","selectors":{"{{WRAPPER}} .lamentor-loop":"gap:{{SIZE}}{{UNIT}};"}},
+"empty_text":{"type":"text","tab":"content","section":"section_layout","label":"Text when empty","default":"Nothing to show.","name":"empty_text"}
+}}

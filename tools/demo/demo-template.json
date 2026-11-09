@@ -1,0 +1,73 @@
+{
+  "version": "0.4",
+  "title": "Lamentor demo",
+  "type": "page",
+  "page_settings": {},
+  "content": [
+    {
+      "id": "a000001", "elType": "container", "isInner": false,
+      "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_align_items": "center",
+        "flex_gap": {"row": "20", "column": "20", "unit": "px", "isLinked": true},
+        "padding": {"top": "60", "right": "20", "bottom": "60", "left": "20", "unit": "px", "isLinked": false},
+        "background_background": "classic",
+        "background_color": "#f4f6fb"
+      },
+      "elements": [
+        {"id": "b000001", "elType": "widget", "widgetType": "heading", "elements": [],
+         "settings": {"title": "Lamentor renders Elementor documents", "header_size": "h1", "align": "center",
+                      "title_color": "#1d2a44", "typography_typography": "custom", "typography_font_size": {"size": 42, "unit": "px"},
+                      "typography_font_size_mobile": {"size": 26, "unit": "px"}, "typography_font_weight": "700"}},
+        {"id": "b000002", "elType": "widget", "widgetType": "text-editor", "elements": [],
+         "settings": {"editor": "<p>Layout, spacing, colours and responsive rules all come from the saved settings.</p>", "align": "center"}},
+        {"id": "b000003", "elType": "widget", "widgetType": "button", "elements": [],
+         "settings": {"text": "Get started", "link": {"url": "https://example.com"}, "align": "center",
+                      "background_background": "classic", "background_color": "#2f6bff", "button_text_color": "#ffffff",
+                      "border_radius": {"top": "30", "right": "30", "bottom": "30", "left": "30", "unit": "px", "isLinked": true}}}
+      ]
+    },
+    {
+      "id": "a000002", "elType": "container", "isInner": false,
+      "settings": {
+        "content_width": "boxed", "flex_direction": "row", "flex_gap": {"row": "24", "column": "24", "unit": "px", "isLinked": true},
+        "flex_direction_mobile": "column", "padding": {"top": "50", "right": "0", "bottom": "50", "left": "0", "unit": "px", "isLinked": false}
+      },
+      "elements": [
+        {"id": "c000001", "elType": "container", "isInner": true, "settings": {"content_width": "full", "width": {"size": 33, "unit": "%"}}, "elements": [
+          {"id": "d000001", "elType": "widget", "widgetType": "icon-box", "elements": [],
+           "settings": {"selected_icon": {"value": "fas fa-bolt", "library": "fa-solid"}, "title_text": "Fast", "description_text": "Server-side rendered markup.", "view": "stacked", "primary_color": "#2f6bff"}}
+        ]},
+        {"id": "c000002", "elType": "container", "isInner": true, "settings": {"content_width": "full", "width": {"size": 33, "unit": "%"}}, "elements": [
+          {"id": "d000002", "elType": "widget", "widgetType": "icon-box", "elements": [],
+           "settings": {"selected_icon": {"value": "fas fa-lock", "library": "fa-solid"}, "title_text": "Safe", "description_text": "Sanitized HTML and CSS values.", "view": "stacked", "primary_color": "#2f6bff"}}
+        ]},
+        {"id": "c000003", "elType": "container", "isInner": true, "settings": {"content_width": "full", "width": {"size": 33, "unit": "%"}}, "elements": [
+          {"id": "d000003", "elType": "widget", "widgetType": "icon-box", "elements": [],
+           "settings": {"selected_icon": {"value": "fas fa-puzzle-piece", "library": "fa-solid"}, "title_text": "Compatible", "description_text": "Reads Elementor JSON.", "view": "stacked", "primary_color": "#2f6bff"}}
+        ]}
+      ]
+    },
+    {
+      "id": "a000003", "elType": "container", "isInner": false,
+      "settings": {"content_width": "boxed", "flex_direction": "column", "flex_gap": {"row": "16", "column": "16", "unit": "px", "isLinked": true}},
+      "elements": [
+        {"id": "e000001", "elType": "widget", "widgetType": "tabs", "elements": [],
+         "settings": {"tabs": [
+           {"_id": "t1", "tab_title": "Tab one", "tab_content": "<p>First tab content.</p>"},
+           {"_id": "t2", "tab_title": "Tab two", "tab_content": "<p>Second tab content.</p>"}
+         ]}},
+        {"id": "e000002", "elType": "widget", "widgetType": "accordion", "elements": [],
+         "settings": {"tabs": [
+           {"_id": "q1", "tab_title": "What is this?", "tab_content": "<p>An open-source builder for Laravel.</p>"},
+           {"_id": "q2", "tab_title": "Does it need WordPress?", "tab_content": "<p>No.</p>"}
+         ]}},
+        {"id": "e000003", "elType": "widget", "widgetType": "counter", "elements": [],
+         "settings": {"starting_number": 0, "ending_number": 1200, "suffix": "+", "title": "Widgets rendered", "duration": 1500}},
+        {"id": "e000004", "elType": "widget", "widgetType": "progress", "elements": [],
+         "settings": {"title": "Coverage", "percent": {"size": 70, "unit": "%"}, "display_percentage": "show"}}
+      ]
+    }
+  ]
+}
