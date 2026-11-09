@@ -305,6 +305,14 @@ function insertTarget() {
     return { list: S.tree, index: S.tree.length, owner: null };
 }
 
+/** Where a library block goes: blocks are sections, so they land on the page root, after the selected element's top-level section, else at the end. */
+function libraryTarget() {
+    let hit = S.selected && find(S.selected);
+    while (hit && hit.list !== S.tree && hit.parent) hit = find(hit.parent.id);
+    if (hit && hit.list === S.tree) return { list: S.tree, index: hit.index + 1, owner: null };
+    return { list: S.tree, index: S.tree.length, owner: null };
+}
+
 // ---------------------------------------------------------------- selection
 
 function select(id, { focusPanel = true } = {}) {
@@ -502,10 +510,10 @@ function libraryCard(item) {
         h('div', { class: 'lm-lib-meta' },
             h('strong', {}, item.title),
             h('span', { class: 'lm-hint' }, [item.category, S.library.sources.length > 1 ? (S.library.sources.find((s) => s.key === item.source)?.label || item.source) : ''].filter(Boolean).join(' · '))),
-        h('button', { class: 'lm-btn', type: 'button', title: 'Insert after the selected element, or at the end of the page', onClick: (e) => insertBlock(item, e.currentTarget) }, 'Insert'));
+        h('button', { class: 'lm-btn', type: 'button', title: 'Insert as a section after the selected one, or at the end of the page', onClick: (e) => insertBlock(item, e.currentTarget) }, 'Insert'));
 }
 
-/** Fetch a block (ids already re-keyed by the server) and place its elements where a palette click would. */
+/** Fetch a block (ids already re-keyed by the server) and insert it as top-level section(s), never nested inside the selection. */
 async function insertBlock(item, button) {
     if (button) { button.disabled = true; button.textContent = 'Inserting…'; }
     try {
@@ -514,7 +522,7 @@ async function insertBlock(item, button) {
         if (!nodes.length) { flash('That block is empty'); return; }
         let first = null;
         mutate(() => {
-            const target = insertTarget();
+            const target = libraryTarget();
             nodes.forEach((node, i) => {
                 const placed = place(node, { ...target, index: target.index + i });
                 first ||= placed;
