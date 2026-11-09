@@ -1,27 +1,70 @@
 {
     "name": "lamentor/lamentor",
-    "description": "Lamentor: an open-source visual page builder for Laravel, compatible with the Elementor JSON document format.",
+    "description": "Open-source visual page builder for Laravel: render and edit Elementor-format pages with a drag-and-drop editor, responsive styling, forms, popups and theme templates. No WordPress required.",
     "type": "library",
     "license": "GPL-3.0-or-later",
     "require": {
         "php": "^8.2",
         "illuminate/support": "^11.0|^12.0",
-        "illuminate/view": "^11.0|^12.0"
+        "illuminate/view": "^11.0|^12.0",
+        "ext-dom": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*"
     },
     "require-dev": {
         "orchestra/testbench": "^9.0|^10.0",
         "phpunit/phpunit": "^11.0"
     },
     "autoload": {
-        "psr-4": { "Lamentor\\": "src/" }
+        "psr-4": {
+            "Lamentor\\": "src/"
+        }
     },
     "autoload-dev": {
-        "psr-4": { "Lamentor\\Tests\\": "tests/" }
+        "psr-4": {
+            "Lamentor\\Tests\\": "tests/"
+        }
     },
     "extra": {
         "laravel": {
-            "providers": ["Lamentor\\LamentorServiceProvider"]
+            "providers": [
+                "Lamentor\\LamentorServiceProvider"
+            ]
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "keywords": [
+        "laravel",
+        "page-builder",
+        "visual-editor",
+        "drag-and-drop",
+        "wysiwyg",
+        "website-builder",
+        "landing-page",
+        "cms",
+        "blade",
+        "elementor",
+        "elementor-alternative",
+        "elementor-compatible",
+        "no-code",
+        "low-code",
+        "responsive",
+        "gpl"
+    ],
+    "homepage": "https://github.com/heaventree/Lamentor",
+    "support": {
+        "issues": "https://github.com/heaventree/Lamentor/issues",
+        "source": "https://github.com/heaventree/Lamentor",
+        "security": "https://github.com/heaventree/Lamentor/security/policy"
+    },
+    "authors": [
+        {
+            "name": "Heaventree Digital",
+            "homepage": "https://github.com/heaventree"
+        }
+    ],
+    "scripts": {
+        "test": "phpunit"
+    },
+    "prefer-stable": true
 }

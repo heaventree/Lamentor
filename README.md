@@ -1,12 +1,29 @@
-# Lamentor
+# Lamentor: open-source page builder for Laravel
 
-An open-source visual page builder for Laravel. It reads and renders the Elementor document format
-(`_elementor_data` JSON), ships a drag-and-drop editor, and runs without WordPress.
+[![Tests](https://github.com/heaventree/Lamentor/actions/workflows/tests.yml/badge.svg)](https://github.com/heaventree/Lamentor/actions/workflows/tests.yml)
+[![License: GPL v3+](https://img.shields.io/badge/license-GPL--3.0--or--later-blue.svg)](LICENSE)
+![PHP 8.2+](https://img.shields.io/badge/php-8.2%2B-777bb4)
+![Laravel 11 | 12](https://img.shields.io/badge/laravel-11%20%7C%2012-ff2d20)
 
-License: **GPL-3.0-or-later**. Lamentor is a port of the behaviour, markup and control definitions of
-[Elementor](https://github.com/elementor/elementor) (GPLv3, Elementor Ltd.) and is **not affiliated with
-or endorsed by Elementor**. "Elementor" is a trademark of its owner; it is used here only to describe
-file-format and CSS compatibility. See [NOTICE](NOTICE.md).
+**Lamentor is a free, self-hosted drag-and-drop website builder for Laravel.** It renders and edits pages in the
+Elementor document format (`_elementor_data` JSON), so you can reuse Elementor templates and exports in a Laravel
+app, with a visual editor, responsive controls, forms, popups, theme templates and dynamic content. No WordPress needed.
+
+> Looking for an **Elementor alternative for Laravel**, a **Laravel page builder**, or a way to **render Elementor
+> pages outside WordPress**? That is what this is for.
+
+Lamentor is not affiliated with or endorsed by Elementor (see [NOTICE](NOTICE.md)); "Elementor" is used only to describe compatibility.
+
+## Why Lamentor
+
+- **Elementor-compatible output.** Controls, defaults and CSS rules are generated from Elementor's own widget definitions, so pages look the same.
+- **Native Laravel.** Eloquent model, Blade components, migrations, artisan commands, gates for permissions, Laravel mail and validation for forms.
+- **Visual editor included.** Drag-and-drop canvas, settings for every control, navigator, undo/redo, tablet/mobile preview, revisions. No build step.
+- **Server-rendered and fast.** 300 widgets render in about half a second; the front end uses Elementor's lightweight scripts.
+- **Safe by default.** Allowlist HTML sanitizing, CSS value filtering, validated element trees, throttled public forms.
+- **Open source, GPL-3.0-or-later.**
+
+**Keywords:** Laravel page builder, Elementor for Laravel, drag and drop website builder, visual editor, WYSIWYG, landing page builder, headless CMS pages, Blade, responsive design, no-code.
 
 ## What works
 
