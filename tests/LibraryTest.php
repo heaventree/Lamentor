@@ -165,6 +165,20 @@ class LibraryTest extends TestCase
         $this->assertCount(2, $res['items']);
     }
 
+    public function test_show_reports_broken_blocks_and_failing_sources_cleanly(): void
+    {
+        file_put_contents("{$this->dir}/pricing/three-tiers/block.json", '{not json');
+        $this->getJson('/lamentor/api/library/blocks/pricing.three-tiers')->assertStatus(422);
+
+        app(Library::class)->register(new class implements LibrarySource {
+            public function key(): string { return 'remote'; }
+            public function label(): string { return 'Remote'; }
+            public function items(string $search = '', ?string $category = null): array { return []; }
+            public function get(string $id): ?array { throw new \RuntimeException('down'); }
+        });
+        $this->getJson('/lamentor/api/library/remote/anything')->assertStatus(502);
+    }
+
     public function test_library_respects_the_edit_gate(): void
     {
         Gate::define('lamentor.edit', fn ($user = null) => false);

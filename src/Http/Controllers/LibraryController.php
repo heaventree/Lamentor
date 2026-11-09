@@ -70,7 +70,15 @@ class LibraryController extends Controller
     {
         $this->authorizeEditing();
 
-        $block = $this->library->get($source)?->get($id);
+        try {
+            $block = $this->library->get($source)?->get($id);
+        } catch (InvalidArgumentException $e) {
+            return response()->json(['message' => $e->getMessage()], 422);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response()->json(['message' => 'The block source is unavailable.'], 502);
+        }
         if (! $block) {
             return response()->json(['message' => 'Block not found.'], 404);
         }
