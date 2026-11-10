@@ -12,6 +12,9 @@ use Lamentor\Dynamic\DynamicTags;
 use Lamentor\Dynamic\LoopSources;
 use Lamentor\Css\StyleGenerator;
 use Lamentor\Kit\Kit;
+use Lamentor\Library\DirectorySource;
+use Lamentor\Library\Library;
+use Lamentor\Library\LocalSource;
 use Lamentor\Rendering\Renderer;
 use Lamentor\Support\FrontendConfig;
 use Lamentor\Schema\SchemaRepository;
@@ -78,6 +81,22 @@ class LamentorServiceProvider extends ServiceProvider
             }
 
             return $registry;
+        });
+
+        $this->app->singleton(Library::class, function ($app) {
+            $library = new Library();
+            $config = (array) config('lamentor.library', []);
+            if ($config['local'] ?? true) {
+                $library->register(new LocalSource(array_values((array) ($config['local_types'] ?? ['section', 'container']))));
+            }
+            if (! empty($config['directory'])) {
+                $library->register(new DirectorySource((string) $config['directory'], 'blocks', (string) ($config['directory_label'] ?? 'Block library')));
+            }
+            foreach ((array) ($config['sources'] ?? []) as $class) {
+                $library->register($app->make($class));
+            }
+
+            return $library;
         });
 
         $this->app->singleton(Breakpoints::class, fn () => new Breakpoints(config('lamentor.breakpoints')));

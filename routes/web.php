@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Lamentor\Http\Controllers\DocumentController;
 use Lamentor\Http\Controllers\EditorAssetController;
+use Lamentor\Http\Controllers\LibraryController;
 use Lamentor\Http\Controllers\MediaController;
 use Lamentor\Http\Controllers\PageController;
 use Lamentor\Http\Controllers\SchemaController;
@@ -27,4 +28,11 @@ Route::prefix('api')->group(function () {
     Route::get('documents/{document}/export', [DocumentController::class, 'export'])->name('lamentor.documents.export');
     Route::get('documents/{document}/revisions', [DocumentController::class, 'revisions'])->name('lamentor.documents.revisions');
     Route::post('documents/{document}/revisions/{revision}/restore', [DocumentController::class, 'restore'])->name('lamentor.documents.restore');
+
+    Route::get('library', [LibraryController::class, 'index'])->name('lamentor.library.index');
+    Route::post('library/blocks', [LibraryController::class, 'store'])->name('lamentor.library.store');
+    Route::get('library/{source}/{id}', [LibraryController::class, 'show'])->name('lamentor.library.show')
+        ->where(['source' => '[a-z0-9][a-z0-9-]*', 'id' => '[A-Za-z0-9][A-Za-z0-9._-]*']);
+    Route::get('library/{source}/{id}/thumbnail', [LibraryController::class, 'thumbnail'])->name('lamentor.library.thumbnail')
+        ->where(['source' => '[a-z0-9][a-z0-9-]*', 'id' => '[A-Za-z0-9][A-Za-z0-9._-]*']);
 });

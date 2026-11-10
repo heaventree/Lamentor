@@ -154,3 +154,13 @@ button{font:inherit;color:inherit}
 .lm-revisions li{display:flex;justify-content:space-between;align-items:center;gap:12px}
 
 @media (max-width:900px){.lm-left{width:280px}.lm-title{min-width:90px}}
+
+/* Library panel */
+.lm-lib-controls{display:grid;gap:6px;margin-bottom:10px}
+.lm-lib-list{display:grid;gap:8px}
+.lm-lib-card{display:grid;grid-template-columns:64px 1fr auto;gap:8px;align-items:center;padding:6px;border:1px solid var(--lm-line);border-radius:var(--lm-radius);background:var(--lm-panel)}
+.lm-lib-thumb{width:64px;height:44px;object-fit:cover;border-radius:4px;background:var(--lm-bg);display:flex;align-items:center;justify-content:center;color:var(--lm-mute);font-size:18px}
+.lm-lib-meta{display:grid;min-width:0}
+.lm-lib-meta strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lm-lib-meta .lm-hint{margin:0}
+.lm-hint.is-error{color:var(--lm-danger)}

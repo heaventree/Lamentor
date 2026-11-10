@@ -34,7 +34,7 @@ Lamentor is not affiliated with or endorsed by Elementor (see [NOTICE](NOTICE.md
 | Containers | Flex and grid containers, legacy sections and columns |
 | Styling | Every style control of every ported widget, generated from Elementor's own control definitions: responsive (mobile/tablet + optional extra breakpoints), hover, typography, borders, shadows, backgrounds, global colours/typography from the Kit |
 | Front end | Elementor's own CSS and JavaScript handlers (tabs, accordion, counter, carousel, lightbox ...) |
-| Editor | Settings panel for all control types, live server-rendered canvas, drag and drop, navigator, undo/redo, device preview, revisions, media upload |
+| Editor | Settings panel for all control types, live server-rendered canvas, drag and drop, navigator, undo/redo, device preview, revisions, media upload, block library (insert ready-made blocks, save any element as a block) |
 | Pro-style modules (original) | **Form** widget (validation from stored fields, honeypot, throttling, stored submissions, optional e-mail) and **theme templates** and **popups** (display conditions, triggers), **dynamic tags**, **Loop Grid** (repeat a template per data item), **Nav Menu** with dropdown/mega panels, sticky + scroll-reveal controls on every element |
 | Laravel | Eloquent model + migration, Blade component, JSON API, artisan commands, authorization gate |
 
@@ -128,6 +128,19 @@ file without a database:
 ```bash
 php artisan lamentor:render exported-template.json --out=check.html
 ```
+
+#### Block library
+
+The editor's **Library** tab lists ready-made blocks and inserts one after the selected element (or at the end).
+The ★ button on an element's toolbar saves it, and everything inside it, as a block. Blocks come from sources:
+
+- **Saved blocks**: documents of type `section`/`container` in this app (what ★ creates).
+- **A folder of block files**, if `lamentor.library.directory` is set: `<category>/<slug>/block.json` (an Elementor
+  export or bare element list), optional `meta.json` (`{"title": "...", "tags": [...]}`) and `thumb.webp|png|jpg`.
+- **Your own sources**: implement `Lamentor\Library\LibrarySource` (a remote block service, for example) and list
+  the class in `lamentor.library.sources`. A source that fails is reported in the panel without hiding the others.
+
+Every inserted block gets fresh element ids and passes the same tree validation as a saved document.
 
 **Security note.** The `html` widget prints author-supplied markup verbatim (as Elementor does), so only
 trust people who can edit documents. Other widgets sanitize HTML (allowlist), URLs and CSS values.

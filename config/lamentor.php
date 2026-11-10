@@ -24,6 +24,17 @@ return [
     'forms_middleware' => ['web', 'throttle:10,1'],
     'forms' => ['mail' => true, 'store_ip' => false],
 
+    // Editor Library panel. "local_types": document types listed as Saved blocks (Save as block stores type
+    // "section"). "directory": a folder of block files (see Library\DirectorySource), null to skip.
+    // "sources": extra LibrarySource classes, resolved from the container (a remote block service, for example).
+    'library' => [
+        'local' => true,
+        'local_types' => ['section', 'container'],
+        'directory' => null,
+        'directory_label' => 'Block library',
+        'sources' => [],
+    ],
+
     // Revisions kept per document.
     'max_revisions' => 20,
 

@@ -6,6 +6,8 @@
  *
  *   php -S 127.0.0.1:8100 -t vendor/orchestra/testbench-core/laravel/public tools/demo/server.php
  *
+ * Set LAMENTOR_LIBRARY_DIR to a folder of block files to try the Library panel with them.
+ *
  * Authentication is switched off here (the demo app has no users): never expose this server.
  */
 
@@ -38,6 +40,8 @@ $demoConfig = [
     'lamentor.assets_url' => '/vendor/lamentor/elementor',
     'filesystems.disks.public.root' => $tmp . '/uploads',
     'filesystems.disks.public.url' => '/uploads',
+    // Optional folder of block files for the editor's Library panel (see src/Library/DirectorySource.php).
+    'lamentor.library.directory' => getenv('LAMENTOR_LIBRARY_DIR') ?: null,
 ];
 
 class DemoConfigProvider extends Illuminate\Support\ServiceProvider
