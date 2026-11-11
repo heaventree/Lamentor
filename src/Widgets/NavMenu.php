@@ -16,7 +16,7 @@ class NavMenu extends Widget
     private const CSS = '.lamentor-nav>ul{display:flex;list-style:none;margin:0;padding:0;gap:20px;flex-wrap:wrap}.lamentor-nav-vertical .lamentor-nav>ul{flex-direction:column}'
         . '.lamentor-nav li{position:relative}.lamentor-nav a,.lamentor-nav button{all:unset;cursor:pointer;display:inline-block;padding:6px 2px}.lamentor-nav a:focus-visible,.lamentor-nav button:focus-visible{outline:2px solid currentColor}'
         . '.lamentor-nav-panel{display:none;position:absolute;left:0;top:100%;min-width:200px;background:#fff;box-shadow:0 6px 24px rgba(0,0,0,.15);padding:10px;z-index:50;list-style:none;margin:0}'
-        . '.lamentor-nav li.is-open>.lamentor-nav-panel{display:block}.lamentor-nav-panel a{display:block;color:#222}.lamentor-nav-toggle{display:none}'
+        . '.lamentor-nav li.is-open>.lamentor-nav-panel{display:block}.lamentor-nav-panel a{display:block;color:#222}.lamentor-nav .lamentor-nav-toggle{display:none}'
         . '@media(max-width:767px){.lamentor-nav-collapse-mobile .lamentor-nav-toggle{display:inline-block}.lamentor-nav-collapse-mobile .lamentor-nav>ul{display:none;flex-direction:column}.lamentor-nav-collapse-mobile .lamentor-nav.is-open>ul{display:flex}.lamentor-nav-collapse-mobile .lamentor-nav-panel{position:static;box-shadow:none}}'
         . '@media(max-width:1024px){.lamentor-nav-collapse-tablet .lamentor-nav-toggle{display:inline-block}.lamentor-nav-collapse-tablet .lamentor-nav>ul{display:none;flex-direction:column}.lamentor-nav-collapse-tablet .lamentor-nav.is-open>ul{display:flex}.lamentor-nav-collapse-tablet .lamentor-nav-panel{position:static;box-shadow:none}}';
 
