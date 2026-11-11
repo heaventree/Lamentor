@@ -109,6 +109,15 @@ class ExtraModulesTest extends TestCase
         $this->assertStringNotContainsString('javascript:', $html);
     }
 
+    public function test_nav_menu_toggle_stays_hidden_on_wide_screens(): void
+    {
+        $html = $this->html([$this->w('nav-menu', ['menu_items' => [['_id' => 'a', 'label' => 'Home', 'link' => ['url' => '/']]]])]);
+
+        // `.lamentor-nav button{all:unset;display:inline-block}` must not win over the rule that hides the toggle
+        $this->assertStringContainsString('.lamentor-nav .lamentor-nav-toggle{display:none}', $html);
+        $this->assertStringNotContainsString('}.lamentor-nav-toggle{display:none}', $html);
+    }
+
     public function test_nav_menu_mega_panel_renders_another_document(): void
     {
         $mega = Document::create(['title' => 'Mega', 'type' => 'section', 'status' => 'publish', 'data' => [$this->w('heading', ['title' => 'Mega content'])]]);
