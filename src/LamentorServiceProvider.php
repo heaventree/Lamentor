@@ -26,6 +26,7 @@ use Lamentor\Widgets\Counter;
 use Lamentor\Widgets\Divider;
 use Lamentor\Widgets\Form;
 use Lamentor\Widgets\GoogleMaps;
+use Lamentor\Widgets\HeroSlider;
 use Lamentor\Widgets\IconList;
 use Lamentor\Widgets\LoopGrid;
 use Lamentor\Widgets\NavMenu;
@@ -60,7 +61,7 @@ class LamentorServiceProvider extends ServiceProvider
         Icon::class, IconBox::class, Alert::class, Counter::class, MenuAnchor::class, Progress::class,
         IconList::class, ImageBox::class, Testimonial::class, SocialIcons::class, StarRating::class,
         Rating::class, Tabs::class, Accordion::class, Toggle::class, Divider::class, GoogleMaps::class,
-        Video::class, Audio::class, ImageCarousel::class, ImageGallery::class, Form::class, LoopGrid::class, NavMenu::class,
+        Video::class, Audio::class, ImageCarousel::class, HeroSlider::class, ImageGallery::class, Form::class, LoopGrid::class, NavMenu::class,
     ];
 
     public function register(): void
