@@ -1,0 +1,41 @@
+/* Lamentor hero slider: fade or slide transition, animated text, arrows and dots. No library. */
+.elementor-widget-hero-slider{--lm-hero-height:70vh;--lm-hero-overlay:40;--lm-hero-color:#fff;--lm-hero-align:center}
+.lm-hero-slider{position:relative;width:100%;height:var(--lm-hero-height);min-height:320px;overflow:hidden;background:linear-gradient(135deg,#1f2937,#4b5563);color:var(--lm-hero-color)}
+.lm-hero-slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;visibility:hidden;opacity:0;transition:opacity .8s ease,transform .8s ease,visibility 0s linear .8s}
+.lm-hero-slide.is-active{visibility:visible;opacity:1;transition-delay:0s;z-index:1}
+.lm-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.lm-hero-slide::before{content:"";position:absolute;inset:0;background:#000;opacity:calc(var(--lm-hero-overlay) / 100);z-index:0;pointer-events:none}
+.lm-hero-content{position:relative;z-index:1;width:100%;max-width:1140px;padding:0 64px;box-sizing:border-box;text-align:var(--lm-hero-align)}
+.lm-hero-title{margin:0 0 16px;font-size:clamp(32px,5vw,64px);line-height:1.1;font-weight:700;color:inherit}
+.lm-hero-text{margin:0 0 28px;font-size:clamp(16px,2vw,22px);line-height:1.5;color:inherit;max-width:720px;display:block}
+.lm-hero-content .lm-hero-text{margin-left:auto;margin-right:auto}
+.lm-hero-slider .lm-hero-slide .lm-hero-content{text-align:var(--lm-hero-align)}
+.lm-hero-button{display:inline-block;padding:14px 32px;border-radius:4px;background:#fff;color:#111;font-weight:600;text-decoration:none;transition:transform .2s ease,background .2s ease}
+.lm-hero-button:hover{transform:translateY(-2px);background:#f3f4f6}
+/* slide transition */
+.lm-effect-slide .lm-hero-slide{opacity:1;transform:translateX(100%);transition:transform .8s ease,visibility 0s linear .8s}
+.lm-effect-slide .lm-hero-slide.is-active{transform:none;transition-delay:0s}
+.lm-effect-slide .lm-hero-slide.is-prev{visibility:visible;transform:translateX(-100%);transition-delay:0s}
+/* text animation: plays each time a slide becomes active */
+.lm-hero-slide:not(.is-active) [class*="lm-a-"]{opacity:0}
+.lm-hero-slide.is-active .lm-a-fadeInUp{animation:lm-h-up .9s cubic-bezier(.2,.7,.2,1) var(--lm-d,0s) both}
+.lm-hero-slide.is-active .lm-a-fadeInDown{animation:lm-h-down .9s cubic-bezier(.2,.7,.2,1) var(--lm-d,0s) both}
+.lm-hero-slide.is-active .lm-a-fadeInLeft{animation:lm-h-left .9s cubic-bezier(.2,.7,.2,1) var(--lm-d,0s) both}
+.lm-hero-slide.is-active .lm-a-fadeInRight{animation:lm-h-right .9s cubic-bezier(.2,.7,.2,1) var(--lm-d,0s) both}
+.lm-hero-slide.is-active .lm-a-zoomIn{animation:lm-h-zoom .9s cubic-bezier(.2,.7,.2,1) var(--lm-d,0s) both}
+.lm-hero-slide.is-active .lm-a-fadeIn{animation:lm-h-fade 1s ease var(--lm-d,0s) both}
+@keyframes lm-h-up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes lm-h-down{from{opacity:0;transform:translateY(-40px)}to{opacity:1;transform:none}}
+@keyframes lm-h-left{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:none}}
+@keyframes lm-h-right{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:none}}
+@keyframes lm-h-zoom{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}
+@keyframes lm-h-fade{from{opacity:0}to{opacity:1}}
+/* controls */
+.lm-hero-arrow{position:absolute;top:50%;z-index:2;width:48px;height:48px;margin-top:-24px;border:0;border-radius:50%;background:rgba(0,0,0,.35);color:#fff;font-size:32px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0 0 4px;transition:background .2s}
+.lm-hero-arrow:hover{background:rgba(0,0,0,.6)}
+.lm-hero-prev{left:16px}.lm-hero-next{right:16px}
+.lm-hero-dots{position:absolute;left:0;right:0;bottom:20px;z-index:2;display:flex;justify-content:center;gap:10px}
+.lm-hero-dot{width:12px;height:12px;padding:0;border:2px solid #fff;border-radius:50%;background:transparent;cursor:pointer;transition:background .2s,transform .2s}
+.lm-hero-dot.is-active{background:#fff;transform:scale(1.15)}
+@media (max-width:767px){.lm-hero-content{padding:0 24px}.lm-hero-arrow{display:none}}
+@media (prefers-reduced-motion:reduce){.lm-hero-slide,.lm-effect-slide .lm-hero-slide{transition:none}.lm-hero-slide.is-active [class*="lm-a-"]{animation:none;opacity:1}}

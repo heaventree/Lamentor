@@ -1,0 +1,282 @@
+{
+  "name": "hero-slider",
+  "class": "Lamentor\\Widgets\\HeroSlider",
+  "title": "Hero Slider",
+  "icon": "eicon-slides",
+  "categories": [
+    "general"
+  ],
+  "keywords": [
+    "hero",
+    "slider",
+    "banner",
+    "slideshow",
+    "carousel",
+    "slides"
+  ],
+  "controls": {
+    "section_slides": {
+      "type": "section",
+      "tab": "content",
+      "label": "Slides",
+      "name": "section_slides"
+    },
+    "slides": {
+      "type": "repeater",
+      "tab": "content",
+      "section": "section_slides",
+      "label": "Slides",
+      "fields": {
+        "_id": {
+          "type": "hidden",
+          "tab": "content",
+          "name": "_id",
+          "default": ""
+        },
+        "image": {
+          "type": "media",
+          "tab": "content",
+          "label": "Background image",
+          "default": {
+            "url": "",
+            "id": ""
+          },
+          "name": "image"
+        },
+        "title": {
+          "type": "text",
+          "tab": "content",
+          "label": "Headline",
+          "label_block": true,
+          "default": "Slide headline",
+          "dynamic": {
+            "active": true
+          },
+          "name": "title"
+        },
+        "text": {
+          "type": "textarea",
+          "tab": "content",
+          "label": "Text",
+          "default": "",
+          "rows": 3,
+          "dynamic": {
+            "active": true
+          },
+          "name": "text"
+        },
+        "button_text": {
+          "type": "text",
+          "tab": "content",
+          "label": "Button text",
+          "default": "",
+          "name": "button_text"
+        },
+        "link": {
+          "type": "url",
+          "tab": "content",
+          "label": "Button link",
+          "dynamic": {
+            "active": true
+          },
+          "name": "link",
+          "default": {
+            "url": "",
+            "is_external": "",
+            "nofollow": "",
+            "custom_attributes": ""
+          }
+        },
+        "animation": {
+          "type": "select",
+          "tab": "content",
+          "label": "Text animation",
+          "default": "fadeInUp",
+          "options": {
+            "fadeInUp": "Fade up",
+            "fadeInDown": "Fade down",
+            "fadeInLeft": "Fade from left",
+            "fadeInRight": "Fade from right",
+            "zoomIn": "Zoom in",
+            "fadeIn": "Fade in",
+            "none": "None"
+          },
+          "name": "animation"
+        }
+      },
+      "default": [
+        {
+          "title": "Your headline here",
+          "text": "A short line that supports the headline.",
+          "button_text": "Learn more",
+          "animation": "fadeInUp"
+        },
+        {
+          "title": "Second slide",
+          "text": "Change the image, text and animation of every slide.",
+          "button_text": "Learn more",
+          "animation": "fadeInLeft"
+        },
+        {
+          "title": "Third slide",
+          "text": "Add as many slides as you need.",
+          "button_text": "Learn more",
+          "animation": "zoomIn"
+        }
+      ],
+      "title_field": "{{{ title }}}",
+      "name": "slides"
+    },
+    "section_options": {
+      "type": "section",
+      "tab": "content",
+      "label": "Behaviour",
+      "name": "section_options"
+    },
+    "effect": {
+      "type": "select",
+      "tab": "content",
+      "section": "section_options",
+      "label": "Transition",
+      "default": "fade",
+      "options": {
+        "fade": "Fade",
+        "slide": "Slide"
+      },
+      "frontend_available": true,
+      "render_type": "none",
+      "name": "effect"
+    },
+    "autoplay": {
+      "type": "switcher",
+      "tab": "content",
+      "section": "section_options",
+      "label": "Autoplay",
+      "label_on": "Yes",
+      "label_off": "No",
+      "return_value": "yes",
+      "default": "yes",
+      "frontend_available": true,
+      "name": "autoplay"
+    },
+    "autoplay_speed": {
+      "type": "number",
+      "tab": "content",
+      "section": "section_options",
+      "label": "Time per slide (ms)",
+      "default": 5000,
+      "condition": {
+        "autoplay": "yes"
+      },
+      "frontend_available": true,
+      "render_type": "none",
+      "name": "autoplay_speed"
+    },
+    "arrows": {
+      "type": "switcher",
+      "tab": "content",
+      "section": "section_options",
+      "label": "Arrows",
+      "label_on": "Show",
+      "label_off": "Hide",
+      "return_value": "yes",
+      "default": "yes",
+      "name": "arrows"
+    },
+    "dots": {
+      "type": "switcher",
+      "tab": "content",
+      "section": "section_options",
+      "label": "Dots",
+      "label_on": "Show",
+      "label_off": "Hide",
+      "return_value": "yes",
+      "default": "yes",
+      "name": "dots"
+    },
+    "section_style": {
+      "type": "section",
+      "tab": "style",
+      "label": "Slider",
+      "name": "section_style"
+    },
+    "height": {
+      "type": "slider",
+      "tab": "style",
+      "section": "section_style",
+      "label": "Height",
+      "size_units": [
+        "vh",
+        "px"
+      ],
+      "range": {
+        "vh": {
+          "min": 30,
+          "max": 100
+        },
+        "px": {
+          "min": 200,
+          "max": 1000
+        }
+      },
+      "default": {
+        "unit": "vh",
+        "size": 70,
+        "sizes": []
+      },
+      "selectors": {
+        "{{WRAPPER}}": "--lm-hero-height: {{SIZE}}{{UNIT}};"
+      },
+      "name": "height"
+    },
+    "overlay": {
+      "type": "number",
+      "tab": "style",
+      "section": "section_style",
+      "label": "Dark overlay (0-100)",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "selectors": {
+        "{{WRAPPER}}": "--lm-hero-overlay: {{VALUE}};"
+      },
+      "name": "overlay"
+    },
+    "text_color": {
+      "type": "color",
+      "tab": "style",
+      "section": "section_style",
+      "label": "Text colour",
+      "default": "#ffffff",
+      "selectors": {
+        "{{WRAPPER}}": "--lm-hero-color: {{VALUE}};"
+      },
+      "name": "text_color"
+    },
+    "align": {
+      "type": "choose",
+      "tab": "style",
+      "section": "section_style",
+      "label": "Text alignment",
+      "default": "center",
+      "options": {
+        "left": {
+          "title": "Left",
+          "icon": "eicon-text-align-left"
+        },
+        "center": {
+          "title": "Center",
+          "icon": "eicon-text-align-center"
+        },
+        "right": {
+          "title": "Right",
+          "icon": "eicon-text-align-right"
+        }
+      },
+      "selectors": {
+        "{{WRAPPER}}": "--lm-hero-align: {{VALUE}};"
+      },
+      "name": "align"
+    }
+  }
+}

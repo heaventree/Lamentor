@@ -36,6 +36,7 @@ final class Assets
     /** Extra libraries a widget needs on top of the base scripts. */
     private const WIDGET_LIBS = [
         'image-carousel' => ['lib/swiper/v8/swiper.min.js'],
+        'hero-slider' => ['js/lamentor-hero-slider.js'],
         'counter' => ['lib/jquery-numerator/jquery-numerator.min.js'],
         'image-gallery' => ['lib/dialog/dialog.min.js'],
         'video' => ['lib/dialog/dialog.min.js'],
@@ -66,6 +67,9 @@ final class Assets
         self::collect($elements, static function (Element $e) use ($add): void {
             if ($e->type === 'widget' && in_array($e->widgetType, self::WIDGET_STYLESHEETS, true)) {
                 $add("css/widget-{$e->widgetType}.min.css");
+            }
+            if ($e->type === 'widget' && $e->widgetType === 'hero-slider') {
+                $add('css/lamentor-hero-slider.css');
             }
 
             self::scanSettings($e->settings, $add);
