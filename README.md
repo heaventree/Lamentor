@@ -3,7 +3,7 @@
 [![Tests](https://github.com/heaventree/Lamentor/actions/workflows/tests.yml/badge.svg)](https://github.com/heaventree/Lamentor/actions/workflows/tests.yml)
 [![License: GPL v3+](https://img.shields.io/badge/license-GPL--3.0--or--later-blue.svg)](LICENSE)
 ![PHP 8.2+](https://img.shields.io/badge/php-8.2%2B-777bb4)
-![Laravel 11 | 12](https://img.shields.io/badge/laravel-11%20%7C%2012-ff2d20)
+![Laravel 12 | 13](https://img.shields.io/badge/laravel-12%20%7C%2013-ff2d20)
 
 **Lamentor is a free, self-hosted drag-and-drop website builder for Laravel.** It renders and edits pages in the
 Elementor document format (`_elementor_data` JSON), so you can reuse Elementor templates and exports in a Laravel
