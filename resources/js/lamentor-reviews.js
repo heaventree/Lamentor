@@ -30,10 +30,18 @@
       return Math.max(1, Math.round(track.clientWidth / (w || track.clientWidth)));
     }
     function pages() { return Math.max(1, Math.ceil(cards.length / perView())); }
+    // the page of the card nearest the left edge; the end of the track is always the last page,
+    // so a part-filled last page is reachable and gets its own dot
     function page() {
       var max = track.scrollWidth - track.clientWidth;
-      if (max <= 1) return 0;
-      return Math.round(track.scrollLeft / max * (pages() - 1));
+      if (max <= 1 || !cards.length) return 0;
+      if (track.scrollLeft >= max - 2) return pages() - 1;
+      var base = cards[0].offsetLeft, nearest = 0, best = Infinity;
+      cards.forEach(function (c, i) {
+        var d = Math.abs(c.offsetLeft - base - track.scrollLeft);
+        if (d < best) { best = d; nearest = i; }
+      });
+      return Math.min(pages() - 1, Math.floor(nearest / perView()));
     }
     function go(p) {
       var n = pages();
