@@ -66,7 +66,7 @@ mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='
 /* slider: a scroll-snap track, so it still swipes without the script */
 .lm-rv-slider{position:relative}
 .lm-rv-viewport{position:relative}
-.lm-rv-track{display:flex;gap:var(--lm-rv-g);overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-x:contain;margin:-12px;padding:12px;scroll-padding-inline:12px}
+.lm-rv-track{display:flex;gap:var(--lm-rv-g);overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-x:contain;margin:-12px 0;padding:12px 0}
 .lm-rv-track::-webkit-scrollbar{display:none}
 .lm-rv-track:focus-visible{outline:2px solid var(--lm-rv-a);outline-offset:-2px}
 .lm-rv-track .lm-rv-card{flex:0 0 calc((100% - (var(--lm-rv-c) - 1) * var(--lm-rv-g)) / var(--lm-rv-c));scroll-snap-align:start}
@@ -74,7 +74,12 @@ mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='
 .lm-rv-theme-outline .lm-rv-arrow,.lm-rv-theme-plain .lm-rv-arrow{background:#fff;color:#202124}
 .lm-rv-arrow:hover{transform:scale(1.06)}
 .lm-rv-arrow[disabled]{opacity:.35;cursor:default;transform:none}
-.lm-rv-prev{left:-18px}.lm-rv-next{right:-18px}
+.lm-rv-prev{left:0}.lm-rv-next{right:0}
+/* arrows sit in a gutter inside the widget, so nothing pokes past the page edge; the gutter also leaves room for the card shadows */
+@media (min-width:768px){
+.lm-rv-slider:has(>.lm-rv-arrow){padding-inline:26px}
+.lm-rv-slider:has(>.lm-rv-arrow) .lm-rv-track{margin-inline:-12px;padding-inline:12px;scroll-padding-inline:12px}
+}
 .lm-rv-dots{display:flex;justify-content:center;gap:8px;margin-top:20px}
 .lm-rv-dot{width:9px;height:9px;padding:0;border:0;border-radius:50%;background:var(--lm-rv-empty);cursor:pointer;transition:background .2s,transform .2s}
 .lm-rv-dot.is-active{background:var(--lm-rv-a);transform:scale(1.25)}

@@ -140,4 +140,71 @@ class ReviewsTest extends TestCase
         $this->assertStringContainsString('--lm-rv-cols:4', str_replace(' ', '', $css));
         $this->assertMatchesRegularExpression('/@media\(max-width:1024px\)\{[^}]*--lm-rv-cols:2/', str_replace(["\n", ' '], '', $css));
     }
+    public function test_every_layout_renders_its_own_markup(): void
+    {
+        foreach (['grid', 'masonry', 'slider', 'list'] as $layout) {
+            $out = $this->html(['layout' => $layout]);
+            $this->assertStringContainsString("lm-rv-layout-{$layout}", $out, $layout);
+            $this->assertSame(3, preg_match_all('/<article class="lm-rv-card"/', $out), $layout);
+            $this->assertSame($layout === 'slider', str_contains($out, 'lm-rv-track'), $layout);
+        }
+        $badge = $this->html(['layout' => 'badge']);
+        $this->assertStringContainsString('lm-rv-layout-badge', $badge);
+        $this->assertStringNotContainsString('lm-rv-card', $badge);
+        $this->assertStringContainsString('lm-rv-layout-grid', $this->html(['layout' => 'bogus']), 'an unknown layout falls back to grid');
+    }
+
+    public function test_each_order_and_filter_option(): void
+    {
+        $reviews = [
+            ['author' => 'Middle', 'rating' => '4', 'text' => 'b', 'date' => '2026-05-01'],
+            ['author' => 'Oldest', 'rating' => '5', 'text' => 'a', 'date' => '2025-01-01'],
+            ['author' => 'Newest', 'rating' => '3', 'text' => 'c', 'date' => '2026-10-01'],
+            ['author' => 'Silent', 'rating' => '5', 'text' => '', 'date' => '2026-11-01'],
+        ];
+        $names = function (array $settings) use ($reviews): array {
+            preg_match_all('/class="lm-rv-name"[^>]*>([^<]+)</', $this->html($settings + ['reviews' => $reviews]), $m);
+
+            return $m[1];
+        };
+
+        $this->assertSame(['Newest', 'Middle', 'Oldest'], $names(['order' => 'newest']));
+        $this->assertSame(['Oldest', 'Middle', 'Newest'], $names(['order' => 'highest']));
+        $this->assertSame(['Middle', 'Oldest', 'Newest'], $names(['order' => 'source']));
+        $this->assertSame(['Silent', 'Newest', 'Middle', 'Oldest'], $names(['order' => 'newest', 'only_with_text' => '']));
+        $this->assertSame(['Oldest'], $names(['min_rating' => '5']));
+        $this->assertSame(['Oldest', 'Silent'], $names(['min_rating' => '5', 'only_with_text' => '', 'order' => 'source']));
+        $this->assertSame(['Newest', 'Middle'], $names(['limit' => 2]));
+    }
+
+    public function test_filters_and_order_apply_to_a_registered_source_too(): void
+    {
+        $this->app->make(ReviewSources::class)->register('feed', 'Feed', fn () => ['summary' => ['rating' => 4.2, 'count' => 90], 'reviews' => [
+            ['author' => 'Two Star', 'rating' => 2, 'text' => 'x', 'date' => '2026-11-10'],
+            ['author' => 'Five Star', 'rating' => 5, 'text' => 'y', 'date' => '2026-01-10'],
+            ['author' => 'Four Star', 'rating' => 4, 'text' => 'z', 'date' => '2026-06-10'],
+        ]]);
+
+        $out = $this->html(['source' => 'feed', 'min_rating' => '4', 'order' => 'newest']);
+        $this->assertStringNotContainsString('Two Star', $out);
+        $this->assertLessThan(strpos($out, 'Five Star'), strpos($out, 'Four Star'));
+        $this->assertStringContainsString('Based on 90 reviews', $out, 'the source summary is kept');
+    }
+
+    public function test_assets_are_only_added_when_the_widget_is_on_the_page(): void
+    {
+        $renderer = $this->app->make(Renderer::class);
+        $other = json_encode([['id' => 'h1', 'elType' => 'widget', 'widgetType' => 'heading', 'settings' => ['title' => 'Hi'], 'elements' => []]]);
+
+        $this->assertNotContains('css/lamentor-reviews.css', $renderer->stylesheetsForJson($other));
+        $scripts = Assets::scriptsFor($renderer->document($other, 1));
+        $this->assertNotContains('js/lamentor-reviews.js', array_merge(...array_values($scripts)));
+
+        // nested inside a container it is still found
+        $nested = json_encode([['id' => 'c1', 'elType' => 'container', 'settings' => [], 'elements' => [
+            ['id' => 'r1', 'elType' => 'widget', 'widgetType' => 'lamentor-reviews', 'settings' => [], 'elements' => []],
+        ]]]);
+        $this->assertContains('css/lamentor-reviews.css', $renderer->stylesheetsForJson($nested));
+        $this->assertContains('js/lamentor-reviews.js', Assets::scriptsFor($renderer->document($nested, 1))['before']);
+    }
 }
