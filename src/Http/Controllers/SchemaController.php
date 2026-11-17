@@ -37,13 +37,14 @@ class SchemaController extends Controller
     }
 
     /** Controls for one widget or element type, with the shared "common" ones appended for widgets. */
-    public function controls(string $type, SchemaRepository $schema): JsonResponse
+    public function controls(string $type, SchemaRepository $schema, WidgetRegistry $registry): JsonResponse
     {
         $this->authorizeEditing();
 
+        // A registered widget may add to its schema at runtime (e.g. the review sources the app registered).
         $controls = in_array($type, ['container', 'section', 'column'], true)
             ? $schema->elementControls($type)
-            : ($schema->widget($type) ? $schema->widgetControls($type) : null);
+            : ($schema->widget($type) ? ($registry->has($type) ? $registry->widget($type)->controls() : $schema->widgetControls($type)) : null);
 
         abort_if($controls === null, 404);
 

@@ -1,0 +1,703 @@
+{
+  "name": "lamentor-reviews",
+  "class": "Lamentor\\Widgets\\Reviews",
+  "title": "Reviews",
+  "icon": "eicon-review",
+  "categories": [
+    "general"
+  ],
+  "keywords": [
+    "reviews",
+    "google",
+    "rating",
+    "testimonials",
+    "stars",
+    "badge",
+    "trust"
+  ],
+  "controls": {
+    "section_source": {
+      "type": "section",
+      "tab": "content",
+      "label": "Reviews",
+      "name": "section_source"
+    },
+    "source": {
+      "type": "select",
+      "tab": "content",
+      "section": "section_source",
+      "label": "Source",
+      "default": "manual",
+      "options": {
+        "manual": "Entered here"
+      },
+      "description": "Sources such as Google are connected in your CMS. Reviews from them update by themselves.",
+      "name": "source"
+    },
+    "reviews": {
+      "type": "repeater",
+      "tab": "content",
+      "section": "section_source",
+      "label": "Reviews",
+      "condition": {
+        "source": "manual"
+      },
+      "fields": {
+        "_id": {
+          "type": "hidden",
+          "tab": "content",
+          "name": "_id",
+          "default": ""
+        },
+        "author": {
+          "type": "text",
+          "tab": "content",
+          "label": "Name",
+          "default": "Customer name",
+          "name": "author"
+        },
+        "avatar": {
+          "type": "media",
+          "tab": "content",
+          "label": "Photo",
+          "default": {
+            "url": "",
+            "id": ""
+          },
+          "name": "avatar"
+        },
+        "rating": {
+          "type": "select",
+          "tab": "content",
+          "label": "Stars",
+          "default": "5",
+          "options": {
+            "5": "5",
+            "4": "4",
+            "3": "3",
+            "2": "2",
+            "1": "1"
+          },
+          "name": "rating"
+        },
+        "date": {
+          "type": "text",
+          "tab": "content",
+          "label": "Date",
+          "default": "",
+          "placeholder": "2026-11-01",
+          "name": "date"
+        },
+        "text": {
+          "type": "textarea",
+          "tab": "content",
+          "label": "Review",
+          "default": "",
+          "rows": 5,
+          "name": "text"
+        }
+      },
+      "default": [
+        {
+          "author": "Aoife Byrne",
+          "rating": "5",
+          "date": "2026-10-28",
+          "text": "Friendly, quick and they explained every step before starting. We will be back for the next project without a doubt."
+        },
+        {
+          "author": "Marcus Hale",
+          "rating": "5",
+          "date": "2026-10-12",
+          "text": "Booked on a Monday and it was all sorted by Wednesday. Clear pricing, no surprises, and the result looks great."
+        },
+        {
+          "author": "Priya Nair",
+          "rating": "4",
+          "date": "2026-09-30",
+          "text": "Good service from start to finish. Communication could be a little faster, but the quality of the work speaks for itself."
+        }
+      ],
+      "title_field": "{{{ author }}}",
+      "name": "reviews"
+    },
+    "business_name": {
+      "type": "text",
+      "tab": "content",
+      "section": "section_source",
+      "label": "Business name",
+      "default": "Our business",
+      "condition": {
+        "source": "manual"
+      },
+      "name": "business_name"
+    },
+    "summary_rating": {
+      "type": "number",
+      "tab": "content",
+      "section": "section_source",
+      "label": "Overall rating",
+      "default": "",
+      "min": 1,
+      "max": 5,
+      "step": 0.1,
+      "placeholder": "Average of the reviews",
+      "condition": {
+        "source": "manual"
+      },
+      "name": "summary_rating"
+    },
+    "summary_count": {
+      "type": "number",
+      "tab": "content",
+      "section": "section_source",
+      "label": "Number of reviews",
+      "default": "",
+      "min": 0,
+      "placeholder": "Count of the reviews",
+      "condition": {
+        "source": "manual"
+      },
+      "name": "summary_count"
+    },
+    "platform": {
+      "type": "select",
+      "tab": "content",
+      "section": "section_source",
+      "label": "Platform",
+      "default": "google",
+      "options": {
+        "google": "Google",
+        "none": "None"
+      },
+      "condition": {
+        "source": "manual"
+      },
+      "name": "platform"
+    },
+    "reviews_link": {
+      "type": "url",
+      "tab": "content",
+      "section": "section_source",
+      "label": "All reviews link",
+      "condition": {
+        "source": "manual"
+      },
+      "default": {
+        "url": "",
+        "is_external": "on",
+        "nofollow": "",
+        "custom_attributes": ""
+      },
+      "name": "reviews_link"
+    },
+    "write_link": {
+      "type": "url",
+      "tab": "content",
+      "section": "section_source",
+      "label": "Write a review link",
+      "condition": {
+        "source": "manual"
+      },
+      "default": {
+        "url": "",
+        "is_external": "on",
+        "nofollow": "",
+        "custom_attributes": ""
+      },
+      "name": "write_link"
+    },
+    "section_layout": {
+      "type": "section",
+      "tab": "content",
+      "label": "Layout",
+      "name": "section_layout"
+    },
+    "layout": {
+      "type": "select",
+      "tab": "content",
+      "section": "section_layout",
+      "label": "Layout",
+      "default": "grid",
+      "options": {
+        "grid": "Grid",
+        "masonry": "Masonry",
+        "slider": "Slider",
+        "list": "List",
+        "badge": "Rating badge"
+      },
+      "name": "layout"
+    },
+    "columns": {
+      "type": "select",
+      "tab": "content",
+      "section": "section_layout",
+      "responsive": {
+        "max": "desktop"
+      },
+      "parent": null,
+      "default": "3",
+      "label": "Columns",
+      "options": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5"
+      },
+      "condition": {
+        "layout": [
+          "grid",
+          "masonry",
+          "slider"
+        ]
+      },
+      "selectors": {
+        "{{WRAPPER}}": "--lm-rv-cols: {{VALUE}};"
+      },
+      "name": "columns"
+    },
+    "columns_tablet": {
+      "type": "select",
+      "tab": "content",
+      "section": "section_layout",
+      "responsive": {
+        "max": "tablet"
+      },
+      "parent": "columns",
+      "default": "2",
+      "label": "Columns",
+      "options": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5"
+      },
+      "condition": {
+        "layout": [
+          "grid",
+          "masonry",
+          "slider"
+        ]
+      },
+      "selectors": {
+        "{{WRAPPER}}": "--lm-rv-cols: {{VALUE}};"
+      },
+      "name": "columns_tablet"
+    },
+    "columns_mobile": {
+      "type": "select",
+      "tab": "content",
+      "section": "section_layout",
+      "responsive": {
+        "max": "mobile"
+      },
+      "parent": "columns_tablet",
+      "default": "1",
+      "label": "Columns",
+      "options": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5"
+      },
+      "condition": {
+        "layout": [
+          "grid",
+          "masonry",
+          "slider"
+        ]
+      },
+      "selectors": {
+        "{{WRAPPER}}": "--lm-rv-cols: {{VALUE}};"
+      },
+      "name": "columns_mobile"
+    },
+    "limit": {
+      "type": "number",
+      "tab": "content",
+      "section": "section_layout",
+      "label": "Reviews to show",
+      "default": 9,
+      "min": 1,
+      "max": 50,
+      "condition": {
+        "layout!": "badge"
+      },
+      "name": "limit"
+    },
+    "min_rating": {
+      "type": "select",
+      "tab": "content",
+      "section": "section_layout",
+      "label": "Show reviews with",
+      "default": "0",
+      "options": {
+        "0": "Any rating",
+        "3": "3 stars and up",
+        "4": "4 stars and up",
+        "5": "5 stars only"
+      },
+      "condition": {
+        "layout!": "badge"
+      },
+      "name": "min_rating"
+    },
+    "only_with_text": {
+      "type": "switcher",
+      "tab": "content",
+      "section": "section_layout",
+      "label": "Skip reviews without text",
+      "default": "yes",
+      "label_on": "Yes",
+      "label_off": "No",
+      "return_value": "yes",
+      "condition": {
+        "layout!": "badge"
+      },
+      "name": "only_with_text"
+    },
+    "order": {
+      "type": "select",
+      "tab": "content",
+      "section": "section_layout",
+      "label": "Order",
+      "default": "newest",
+      "options": {
+        "newest": "Newest first",
+        "highest": "Highest rated first",
+        "source": "As entered"
+      },
+      "condition": {
+        "layout!": "badge"
+      },
+      "name": "order"
+    },
+    "show_header": {
+      "type": "switcher",
+      "tab": "content",
+      "section": "section_layout",
+      "label": "Rating summary above",
+      "default": "yes",
+      "condition": {
+        "layout!": "badge"
+      },
+      "label_on": "Show",
+      "label_off": "Hide",
+      "return_value": "yes",
+      "name": "show_header"
+    },
+    "show_write_button": {
+      "type": "switcher",
+      "tab": "content",
+      "section": "section_layout",
+      "label": "Write a review button",
+      "default": "yes",
+      "label_on": "Show",
+      "label_off": "Hide",
+      "return_value": "yes",
+      "name": "show_write_button"
+    },
+    "write_button_text": {
+      "type": "text",
+      "tab": "content",
+      "section": "section_layout",
+      "label": "Button text",
+      "default": "Write a review",
+      "condition": {
+        "show_write_button": "yes"
+      },
+      "name": "write_button_text"
+    },
+    "show_avatar": {
+      "type": "switcher",
+      "tab": "content",
+      "section": "section_layout",
+      "label": "Reviewer photo",
+      "default": "yes",
+      "condition": {
+        "layout!": "badge"
+      },
+      "label_on": "Show",
+      "label_off": "Hide",
+      "return_value": "yes",
+      "name": "show_avatar"
+    },
+    "show_date": {
+      "type": "switcher",
+      "tab": "content",
+      "section": "section_layout",
+      "label": "Date",
+      "default": "yes",
+      "condition": {
+        "layout!": "badge"
+      },
+      "label_on": "Show",
+      "label_off": "Hide",
+      "return_value": "yes",
+      "name": "show_date"
+    },
+    "show_platform": {
+      "type": "switcher",
+      "tab": "content",
+      "section": "section_layout",
+      "label": "Platform icon",
+      "default": "yes",
+      "label_on": "Show",
+      "label_off": "Hide",
+      "return_value": "yes",
+      "name": "show_platform"
+    },
+    "name_format": {
+      "type": "select",
+      "tab": "content",
+      "section": "section_layout",
+      "label": "Reviewer name",
+      "default": "full",
+      "options": {
+        "full": "Full name",
+        "short": "First name and initial"
+      },
+      "condition": {
+        "layout!": "badge"
+      },
+      "name": "name_format"
+    },
+    "text_limit": {
+      "type": "number",
+      "tab": "content",
+      "section": "section_layout",
+      "label": "Shorten text after (characters)",
+      "default": 180,
+      "min": 0,
+      "description": "0 shows the whole review.",
+      "condition": {
+        "layout!": "badge"
+      },
+      "name": "text_limit"
+    },
+    "read_more_text": {
+      "type": "text",
+      "tab": "content",
+      "section": "section_layout",
+      "label": "Read more text",
+      "default": "Read more",
+      "condition": {
+        "layout!": "badge"
+      },
+      "name": "read_more_text"
+    },
+    "section_slider": {
+      "type": "section",
+      "tab": "content",
+      "label": "Slider",
+      "name": "section_slider",
+      "condition": {
+        "layout": "slider"
+      }
+    },
+    "autoplay": {
+      "type": "switcher",
+      "tab": "content",
+      "section": "section_slider",
+      "label": "Autoplay",
+      "default": "yes",
+      "label_on": "Yes",
+      "label_off": "No",
+      "return_value": "yes",
+      "frontend_available": true,
+      "name": "autoplay"
+    },
+    "autoplay_speed": {
+      "type": "number",
+      "tab": "content",
+      "section": "section_slider",
+      "label": "Time per slide (ms)",
+      "default": 5000,
+      "condition": {
+        "autoplay": "yes"
+      },
+      "frontend_available": true,
+      "render_type": "none",
+      "name": "autoplay_speed"
+    },
+    "arrows": {
+      "type": "switcher",
+      "tab": "content",
+      "section": "section_slider",
+      "label": "Arrows",
+      "default": "yes",
+      "label_on": "Show",
+      "label_off": "Hide",
+      "return_value": "yes",
+      "name": "arrows"
+    },
+    "dots": {
+      "type": "switcher",
+      "tab": "content",
+      "section": "section_slider",
+      "label": "Dots",
+      "default": "yes",
+      "label_on": "Show",
+      "label_off": "Hide",
+      "return_value": "yes",
+      "name": "dots"
+    },
+    "section_style": {
+      "type": "section",
+      "tab": "style",
+      "label": "Cards",
+      "name": "section_style"
+    },
+    "theme": {
+      "type": "select",
+      "tab": "style",
+      "section": "section_style",
+      "label": "Theme",
+      "default": "light",
+      "options": {
+        "light": "Light",
+        "dark": "Dark",
+        "outline": "Outline",
+        "plain": "Plain (no card)"
+      },
+      "name": "theme"
+    },
+    "card_background": {
+      "type": "color",
+      "tab": "style",
+      "section": "section_style",
+      "label": "Card background",
+      "default": "",
+      "selectors": {
+        "{{WRAPPER}}": "--lm-rv-card: {{VALUE}};"
+      },
+      "name": "card_background"
+    },
+    "text_color": {
+      "type": "color",
+      "tab": "style",
+      "section": "section_style",
+      "label": "Text colour",
+      "default": "",
+      "selectors": {
+        "{{WRAPPER}}": "--lm-rv-text: {{VALUE}};"
+      },
+      "name": "text_color"
+    },
+    "name_color": {
+      "type": "color",
+      "tab": "style",
+      "section": "section_style",
+      "label": "Name colour",
+      "default": "",
+      "selectors": {
+        "{{WRAPPER}}": "--lm-rv-name: {{VALUE}};"
+      },
+      "name": "name_color"
+    },
+    "star_color": {
+      "type": "color",
+      "tab": "style",
+      "section": "section_style",
+      "label": "Star colour",
+      "default": "",
+      "selectors": {
+        "{{WRAPPER}}": "--lm-rv-star: {{VALUE}};"
+      },
+      "name": "star_color"
+    },
+    "accent_color": {
+      "type": "color",
+      "tab": "style",
+      "section": "section_style",
+      "label": "Button and link colour",
+      "default": "",
+      "selectors": {
+        "{{WRAPPER}}": "--lm-rv-accent: {{VALUE}};"
+      },
+      "name": "accent_color"
+    },
+    "card_radius": {
+      "type": "slider",
+      "tab": "style",
+      "section": "section_style",
+      "label": "Corner radius",
+      "size_units": [
+        "px"
+      ],
+      "range": {
+        "px": {
+          "min": 0,
+          "max": 40
+        }
+      },
+      "default": {
+        "unit": "px",
+        "size": 12,
+        "sizes": []
+      },
+      "selectors": {
+        "{{WRAPPER}}": "--lm-rv-radius: {{SIZE}}{{UNIT}};"
+      },
+      "name": "card_radius"
+    },
+    "gap": {
+      "type": "slider",
+      "tab": "style",
+      "section": "section_style",
+      "label": "Space between cards",
+      "size_units": [
+        "px"
+      ],
+      "range": {
+        "px": {
+          "min": 0,
+          "max": 80
+        }
+      },
+      "default": {
+        "unit": "px",
+        "size": 24,
+        "sizes": []
+      },
+      "selectors": {
+        "{{WRAPPER}}": "--lm-rv-gap: {{SIZE}}{{UNIT}};"
+      },
+      "name": "gap"
+    },
+    "shadow": {
+      "type": "switcher",
+      "tab": "style",
+      "section": "section_style",
+      "label": "Shadow",
+      "default": "yes",
+      "label_on": "Show",
+      "label_off": "Hide",
+      "return_value": "yes",
+      "name": "shadow"
+    },
+    "align": {
+      "type": "choose",
+      "tab": "style",
+      "section": "section_style",
+      "label": "Alignment",
+      "default": "left",
+      "options": {
+        "left": {
+          "title": "Left",
+          "icon": "eicon-text-align-left"
+        },
+        "center": {
+          "title": "Center",
+          "icon": "eicon-text-align-center"
+        }
+      },
+      "selectors": {
+        "{{WRAPPER}}": "--lm-rv-align: {{VALUE}};"
+      },
+      "name": "align"
+    }
+  }
+}

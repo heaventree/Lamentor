@@ -74,6 +74,8 @@ class InstallAssetsCommand extends Command
         $files->copy(__DIR__ . '/../../resources/css/lamentor-hero-slider.css', "{$target}/css/lamentor-hero-slider.css");
         $files->ensureDirectoryExists("{$target}/js");
         $files->copy(__DIR__ . '/../../resources/js/lamentor-hero-slider.js', "{$target}/js/lamentor-hero-slider.js");
+        $files->copy(__DIR__ . '/../../resources/css/lamentor-reviews.css', "{$target}/css/lamentor-reviews.css");
+        $files->copy(__DIR__ . '/../../resources/js/lamentor-reviews.js', "{$target}/js/lamentor-reviews.js");
 
         $this->components->info("Copied {$copied} files to {$target}");
 

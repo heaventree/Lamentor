@@ -30,7 +30,7 @@ Lamentor is not affiliated with or endorsed by Elementor (see [NOTICE](NOTICE.md
 | Area | State |
 |---|---|
 | Document model | Reads/writes Elementor element trees (container, legacy section/column, widgets), template import/export |
-| Widgets (27 + Form, Loop Grid, Nav Menu) | heading, text-editor, button, image, icon, icon-box, icon-list, image-box, image-carousel, image-gallery, divider, spacer, html, alert, counter, progress, rating, star-rating, social-icons, testimonial, tabs, accordion, toggle, video, audio, google_maps, menu-anchor |
+| Widgets (27 + Form, Loop Grid, Nav Menu, Hero Slider, Reviews) | heading, text-editor, button, image, icon, icon-box, icon-list, image-box, image-carousel, image-gallery, divider, spacer, html, alert, counter, progress, rating, star-rating, social-icons, testimonial, tabs, accordion, toggle, video, audio, google_maps, menu-anchor |
 | Containers | Flex and grid containers, legacy sections and columns |
 | Styling | Every style control of every ported widget, generated from Elementor's own control definitions: responsive (mobile/tablet + optional extra breakpoints), hover, typography, borders, shadows, backgrounds, global colours/typography from the Kit |
 | Front end | Elementor's own CSS and JavaScript handlers (tabs, accordion, counter, carousel, lightbox ...) |
@@ -111,6 +111,7 @@ These two modules are original Lamentor designs written from Elementor's *docume
 - Popups: documents of type `popup` with `settings` `{conditions, trigger: load|delay|click|exit, delay, selector, once}`; print them with `<x-lamentor::popups />` (focus-managed dialog, Esc to close, remembers dismissal).
 - Dynamic tags: bind a setting with `settings.__dynamic__ = {"title": {"tag": "field", "settings": {"key": "name"}}}`. Built in: `text`, `site-title`, `current-date`, `request-url`, `user-name`, `field`. Add your own with `app(Lamentor\Dynamic\DynamicTags::class)->register(...)`.
 - Loop Grid: set a data source (`app(Lamentor\Dynamic\LoopSources::class)->register('posts', fn (int $limit) => Post::latest()->limit($limit)->get())`) and an item template (a `loop-item` document using `field` tags).
+- Reviews (`lamentor-reviews`): customer reviews as a grid, masonry wall, slider, list or rating badge, with a rating summary and a "Write a review" button. Type reviews into the widget, or register a feed your app keeps up to date (for example Google reviews it fetches and stores): `app(Lamentor\Reviews\ReviewSources::class)->register('google', 'Google reviews', fn () => ['summary' => [...], 'reviews' => [...]])`. The source then shows up in the widget's Source list. The callable runs on every render, so read stored data there, not a remote API.
 - Nav Menu: items with dropdown links (`Label|URL` per line, only http(s)/relative/mailto/# kept) or a mega panel (a `section`/`mega-menu` document).
 
 ### Editor
