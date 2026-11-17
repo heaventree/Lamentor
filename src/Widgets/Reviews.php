@@ -94,7 +94,8 @@ class Reviews extends Widget
     {
         $source = (string) ($settings['source'] ?? 'manual');
         $sources = app(ReviewSources::class);
-        if ($source !== 'manual' && $sources->has($source)) {
+        if ($source !== 'manual') {
+            // an unknown source (e.g. a page copied from a site that had it) gives an empty feed, never the sample reviews
             return $sources->feed($source);
         }
 

@@ -108,6 +108,9 @@ class ReviewsTest extends TestCase
         $this->app->make(ReviewSources::class)->register('broken', 'Broken', fn () => throw new \RuntimeException('API down'));
 
         $this->assertStringNotContainsString('lm-reviews', $this->html(['source' => 'broken']));
+        $missing = $this->html(['source' => 'missing']);
+        $this->assertStringNotContainsString('lm-reviews', $missing, 'an unregistered source shows nothing');
+        $this->assertStringNotContainsString('Aoife', $missing);
     }
 
     public function test_unsafe_input_is_neutralised(): void
