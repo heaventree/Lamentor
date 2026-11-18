@@ -37,6 +37,7 @@ final class Assets
     private const WIDGET_LIBS = [
         'image-carousel' => ['lib/swiper/v8/swiper.min.js'],
         'hero-slider' => ['js/lamentor-hero-slider.js'],
+        'lamentor-reviews' => ['js/lamentor-reviews.js'],
         'counter' => ['lib/jquery-numerator/jquery-numerator.min.js'],
         'image-gallery' => ['lib/dialog/dialog.min.js'],
         'video' => ['lib/dialog/dialog.min.js'],
@@ -70,6 +71,9 @@ final class Assets
             }
             if ($e->type === 'widget' && $e->widgetType === 'hero-slider') {
                 $add('css/lamentor-hero-slider.css');
+            }
+            if ($e->type === 'widget' && $e->widgetType === 'lamentor-reviews') {
+                $add('css/lamentor-reviews.css');
             }
 
             self::scanSettings($e->settings, $add);

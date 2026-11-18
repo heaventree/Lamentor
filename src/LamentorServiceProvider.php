@@ -15,6 +15,7 @@ use Lamentor\Kit\Kit;
 use Lamentor\Library\DirectorySource;
 use Lamentor\Library\Library;
 use Lamentor\Library\LocalSource;
+use Lamentor\Reviews\ReviewSources;
 use Lamentor\Rendering\Renderer;
 use Lamentor\Support\FrontendConfig;
 use Lamentor\Schema\SchemaRepository;
@@ -36,6 +37,7 @@ use Lamentor\Widgets\ImageGallery;
 use Lamentor\Widgets\MenuAnchor;
 use Lamentor\Widgets\Progress;
 use Lamentor\Widgets\Rating;
+use Lamentor\Widgets\Reviews;
 use Lamentor\Widgets\Section;
 use Lamentor\Widgets\SocialIcons;
 use Lamentor\Widgets\StarRating;
@@ -61,7 +63,7 @@ class LamentorServiceProvider extends ServiceProvider
         Icon::class, IconBox::class, Alert::class, Counter::class, MenuAnchor::class, Progress::class,
         IconList::class, ImageBox::class, Testimonial::class, SocialIcons::class, StarRating::class,
         Rating::class, Tabs::class, Accordion::class, Toggle::class, Divider::class, GoogleMaps::class,
-        Video::class, Audio::class, ImageCarousel::class, HeroSlider::class, ImageGallery::class, Form::class, LoopGrid::class, NavMenu::class,
+        Video::class, Audio::class, ImageCarousel::class, HeroSlider::class, Reviews::class, ImageGallery::class, Form::class, LoopGrid::class, NavMenu::class,
     ];
 
     public function register(): void
@@ -70,6 +72,7 @@ class LamentorServiceProvider extends ServiceProvider
 
         $this->app->singleton(DynamicTags::class);
         $this->app->singleton(LoopSources::class);
+        $this->app->singleton(ReviewSources::class);
         $this->app->singleton(SchemaRepository::class, fn () => new SchemaRepository());
 
         $this->app->singleton(WidgetRegistry::class, function () {
